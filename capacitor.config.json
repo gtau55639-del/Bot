@@ -1,0 +1,8 @@
+{
+  "appId": "com.botlaunch.ai",
+  "appName": "BOTLAUNCH AI",
+  "webDir": "dist",
+  "backgroundColor": "#0e1118",
+  "server": { "androidScheme": "https" },
+  "android": { "adjustMarginsForEdgeToEdge": "auto" }
+}

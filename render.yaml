@@ -1,0 +1,30 @@
+# FREE plan: no persistent disk. Data is lost on restart/redeploy and the service sleeps after 15 min idle.
+# To keep data, change plan to "starter" and add the disk block shown at the bottom.
+services:
+  - type: web
+    name: botlaunch-ai
+    runtime: node
+    plan: free
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MAX_UPLOAD_MB
+        value: "50"
+      - key: BOTLAUNCH_STORAGE
+        value: /tmp/botlaunch
+      - key: ADMIN_TOKEN
+        generateValue: true
+      - key: ENABLE_RUNNER
+        value: "true"
+      - key: MAX_RUNNING_BOTS
+        value: "1"
+      - key: BOT_MEMORY_MB
+        value: "256"
+# --- Paid (data survives restarts): set plan: starter, BOTLAUNCH_STORAGE: /var/data/botlaunch and add:
+#    disk:
+#      name: botlaunch-data
+#      mountPath: /var/data/botlaunch
+#      sizeGB: 1

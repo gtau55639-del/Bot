@@ -1,0 +1,19 @@
+services:
+  botlaunch-ai:
+    build: .
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      BOTLAUNCH_STORAGE: /app/storage
+      MAX_UPLOAD_MB: 50
+      # Set these in a .env file next to this compose file (see .env.example)
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-}
+      ENABLE_RUNNER: ${ENABLE_RUNNER:-false}
+      MAX_RUNNING_BOTS: ${MAX_RUNNING_BOTS:-3}
+    volumes:
+      - botlaunch-data:/app/storage
+    restart: unless-stopped
+volumes:
+  botlaunch-data:
